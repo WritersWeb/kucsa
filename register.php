@@ -1,6 +1,6 @@
 <?php
 
-$conn = new mysqli("localhost", "root", "Gorediih70", "kucsa");
+$conn = new mysqli("localhost", "root", "", "kucsa");
 
 if ($_SERVER)["REQUEST_METHOD"] == "POST"; {
     # code...
