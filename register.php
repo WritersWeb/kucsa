@@ -1,29 +1,21 @@
 <?php
+$conn = new mysqli("localhost", "root", "", "kucsa");
 
-$conn = new mysqli("localhost", "root", "Gorediih70", "kucsa");
-
-if ($_SERVER)["REQUEST_METHOD"] == "POST"; {
-    # code...
-    $full_name = $_POST ["full_name"];
-    $username = $_POST ["username"];
-    $email = $_POST ["email"];
-        #PASSWORD HASH
-    $password = password_hash($_POST  ["password"], PASSWORD_DEFAULT) ;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $full_name = $_POST["full_name"];
+    $username = $_POST["username"];
+    $email = $_POST["email"];
+    $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
     $sql = "INSERT INTO user (full_name, username, email, password) VALUES (?,?,?,?)";
-      
-    $stmt =  $conn->prepare($sql);
-    
-    $stmt->bind_param("ssss" , $full_name, $username, $email, $password);
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssss", $full_name, $username, $email, $password);
 
     if ($stmt->execute()) {
-        # code...
-        echo "Registration successfull :  <a href = 'login.html' </a> ";
-    }else
-    echo "Error : " . $conn->error;
+        header("Location: login.html");
+        exit();
+    } else {
+        echo "Error: " . $conn->error;
+    }
 }
-
-
-
-
 ?>
